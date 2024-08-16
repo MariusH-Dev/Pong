@@ -7,39 +7,28 @@ Game::Game()
     computer(35, GetScreenHeight() / 2 - 60, 20, 120, 10),
     playerScore(0), compScore(0), gameStarted(false) {}
 
-void Game::Update() {
-    if (!gameStarted) {
-        if (IsKeyPressed(KEY_ENTER)) {
-            gameStarted = true;
-        }
-    }
-    else {
-        ball.Update();
-        player.Update();
-        computer.Update(ball.posY);
+Game::~Game() {
+    // Unload sounds and music
+    UnloadSound(collisionSound);
+    UnloadSound(scoreSound);
+    UnloadMusicStream(bg_music);
 
-        // Ball collision detection with paddles
-        if (CheckCollisionCircleRec({ ball.posX, ball.posY }, ball.radius, { player.posX, player.posY, player.width, player.height })) {
-            ball.speedX *= -1;
-        }
+    CloseAudioDevice();
+}
 
-        if (CheckCollisionCircleRec({ ball.posX, ball.posY }, ball.radius, { computer.posX, computer.posY, computer.width, computer.height })) {
-            ball.speedX *= -1;
-        }
+void Game::InitAudio() {
+    InitAudioDevice();
 
-        // Check whether a point has been scored
-        if (ball.posX + ball.radius >= GetScreenWidth()) {
-            compScore++;
-            printf("Computer scores! CompScore: %d\n", compScore);
-            ball.ResetBall();
-        }
+    // Load sounds and music
+    collisionSound = LoadSound("assets/sounds/click2.wav");
+    edgeCollisionSound = LoadSound("assets/sounds/click4.wav");
+    scoreSound = LoadSound("assets/sounds/Coin01.wav");
+    bg_music = LoadMusicStream("assets/sounds/bg_music.mp3");
+    SetSoundVolume(collisionSound, 1);
+    SetSoundVolume(edgeCollisionSound, 1);
 
-        if (ball.posX - ball.radius <= 0) {
-            playerScore++;
-            printf("Computer scores! PlayerScore: %d\n", playerScore);
-            ball.ResetBall();
-        }
-    }
+    PlayMusicStream(bg_music);
+    SetMusicVolume(bg_music, 0.1);
 }
 
 void Game::Draw() {
@@ -60,6 +49,54 @@ void Game::Draw() {
     }
 
     EndDrawing();
+}
+
+void Game::Update() {
+
+    UpdateMusicStream(bg_music);
+
+    if (!gameStarted) {
+        if (IsKeyPressed(KEY_ENTER)) {
+            gameStarted = true;
+        }
+    }
+    else {
+        ball.Update();
+        player.Update();
+        computer.Update(ball.posY);
+
+        // Ball collision detection with paddles
+        if (CheckCollisionCircleRec({ ball.posX, ball.posY }, ball.radius, { player.posX, player.posY, player.width, player.height })) {
+            ball.speedX *= -1;
+            PlaySound(collisionSound);
+        }
+
+        if (CheckCollisionCircleRec({ ball.posX, ball.posY }, ball.radius, { computer.posX, computer.posY, computer.width, computer.height })) {
+            ball.speedX *= -1;
+            PlaySound(collisionSound);
+        }
+
+        // Check whether a point has been scored
+        if (ball.posX + ball.radius >= GetScreenWidth()) {
+            compScore++;
+            SetSoundPan(scoreSound, 0.2);
+            PlaySound(scoreSound);
+            ball.ResetBall();
+        }
+
+        if (ball.posX - ball.radius <= 0) {
+            playerScore++;
+            SetSoundPan(scoreSound, 0.8);
+            PlaySound(scoreSound);
+            ball.ResetBall();
+        }
+
+        // Check collision detection with edges 
+        if (ball.posY + ball.radius >= GetScreenHeight() || ball.posY - ball.radius <= 0) {
+            ball.speedY *= -1;
+            PlaySound(edgeCollisionSound);
+        }
+    }
 }
 
 void Game::ResetGame() {

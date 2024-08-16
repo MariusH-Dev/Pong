@@ -14,11 +14,9 @@ void Paddle::Draw() {
 void Paddle::Update() {
     if (IsKeyDown(KEY_UP)) {
         posY -= speed;
-        printf("UP key pressed. New Y position: %f\n", posY);
     }
     if (IsKeyDown(KEY_DOWN)) {
         posY += speed;
-        printf("DOWN key pressed. New Y position: %f\n", posY);
     }
  
     LimitMove();

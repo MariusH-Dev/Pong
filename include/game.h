@@ -17,10 +17,18 @@ private:
 
     bool gameStarted;
 
+    // Audio components
+    Sound collisionSound;
+    Sound edgeCollisionSound;
+    Sound scoreSound;
+    Music bg_music;
+
 public:
     Game();
-    void Update();
+    ~Game();
     void Draw();
+    void InitAudio();
+    void Update();
     void ResetGame();
 };
 

@@ -7,6 +7,8 @@ int main() {
 
     Game pongGame;
 
+    pongGame.InitAudio();
+
     while (!WindowShouldClose()) {
         pongGame.Update();
         pongGame.Draw();
