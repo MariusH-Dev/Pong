@@ -4,9 +4,12 @@
 #include "paddle.h"
 
 class CompPaddle : public Paddle {
+private:
+    float reactionTime, timeSinceReaction;
+
 public:
     CompPaddle(float positionX, float positionY, float width, float height, int speed);
-    void Update(int ballY);
+    void Update(float ballY,float ballSpeedX, float deltaTime);
 };
 
 #endif

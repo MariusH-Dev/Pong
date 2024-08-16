@@ -53,6 +53,9 @@ void Game::Draw() {
 
 void Game::Update() {
 
+    //  Delta Time for smooth movements
+    float deltaTime = GetFrameTime();
+
     UpdateMusicStream(bg_music);
 
     if (!gameStarted) {
@@ -63,7 +66,7 @@ void Game::Update() {
     else {
         ball.Update();
         player.Update();
-        computer.Update(ball.posY);
+        computer.Update(ball.posY, ball.speedX, deltaTime);
 
         // Ball collision detection with paddles
         if (CheckCollisionCircleRec({ ball.posX, ball.posY }, ball.radius, { player.posX, player.posY, player.width, player.height })) {
