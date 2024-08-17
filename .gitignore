@@ -132,3 +132,7 @@ conan.lock
 
 # Visual Studio Code specific files
 .vscode/
+
+*.sln
+resource.h
+*.rc
