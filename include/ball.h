@@ -5,12 +5,11 @@
 
 class Ball {
 public:
-	float posX, posY;
-	int speedX, speedY;
-	int radius;
+	float posX, posY, radius, speedX, speedY;
 
-    Ball(float positionX, float positionY, int radius, int speedX, int speedY);
-    void Draw();
+    Ball(float positionX, float positionY, float radius, float speedX, float speedY);
+    void Draw() const;
+    void IncreaseSpeed();
     void Update();
     void ResetBall();
 };

@@ -1,12 +1,25 @@
+#include <iostream>
+
 #include "ball.h"
 #include "game.h"
 
-Ball::Ball(float positionX, float positionY, int radius, int speedX, int speedY)
+
+Ball::Ball(float positionX, float positionY, float radius, float speedX, float speedY)
 	: posX(positionX), posY(positionY), radius(radius), speedX(speedX), speedY(speedY) {}
 
-void Ball::Draw()
+void Ball::Draw() const
 {
-	DrawCircle(posX, posY, radius, Color(WHITE));
+	DrawCircle(static_cast<int>(posX), static_cast<int>(posY), radius, Color(WHITE));
+}
+
+void Ball::IncreaseSpeed() {
+	const int maxSpeed = 18;
+
+	if (speedX < maxSpeed)
+		speedX *= 1.2f;
+
+	if (speedY < maxSpeed)
+		speedY *= 1.05f;
 }
 
 void Ball::Update()
@@ -15,11 +28,11 @@ void Ball::Update()
 	posY += speedY;
 }
 
-void Ball::ResetBall() {
+void Ball::ResetBall() 
+{
 	posX = GetScreenWidth() / static_cast<float>(2);
 	posY = GetScreenHeight() / static_cast<float>(2);
 
-	int speedChoice[2] = { -1,1 };
-	speedX *= speedChoice[GetRandomValue(0, 1)];
-	speedY *= speedChoice[GetRandomValue(0, 1)];
+	speedX = (speedX > 0 ? -8 : 8);  // Zufällige Richtung
+	speedY = 8;
 }

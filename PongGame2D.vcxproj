@@ -128,6 +128,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\powerup.cpp" />
     <ClCompile Include="src\game.cpp" />
     <ClCompile Include="src\comp_paddle.cpp" />
     <ClCompile Include="src\paddle.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="include\comp_paddle.h" />
     <ClInclude Include="include\ball.h" />
     <ClInclude Include="include\paddle.h" />
+    <ClInclude Include="include\powerup.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
