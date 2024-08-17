@@ -33,20 +33,19 @@ private:
 public:
     Game();
     ~Game();
-    void PowerUpLogic();
+    void BeginDrawingGameContent();
     void CheckCollision();
     void CheckGameStarted(float deltaTime);
     void CheckScore();
     void Draw();
+    void DynamicBallDirection(float angleFactor);
     void InitAudio();
     void LoadMusicAndSounds();
+    void PowerUpLogic();
     void SpawnPowerUp();
     void Update();
     void UpdateDifficulty();
     void ResetGame();
-
-    template <typename T>
-    T Clamp(T value, T min, T max);
 };
 
 #endif

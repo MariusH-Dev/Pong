@@ -17,18 +17,63 @@ Game::~Game()
     CloseAudioDevice();
 }
 
+void Game::BeginDrawingGameContent()
+{
+    // Draw PowerUps
+    for (const auto& powerUp : powerUps) {
+        powerUp.Draw();
+    }
+
+    // Draw Startscreen
+    if (!gameStarted)
+    {
+        DrawText("PONG", GetScreenWidth() / 2 - 100, GetScreenHeight() / 2 - 80, 60, WHITE);
+        DrawText("Press ENTER to Start", GetScreenWidth() / 2 - 200, GetScreenHeight() / 2 + 20, 30, WHITE);
+    }
+    // Draw the Game
+    else
+    {
+        ball.Draw();
+        player.Draw();
+        computer.Draw();
+
+        DrawText(TextFormat("%i", compScore), GetScreenWidth() / 4 - 20, 20, 25, WHITE);
+        DrawText(TextFormat("%i", playerScore), 3 * (GetScreenWidth() / 4) - 20, 20, 25, WHITE);
+    }
+}
+
 void Game::CheckCollision()
 {
     if (CheckCollisionCircleRec({ ball.posX, ball.posY }, ball.radius, { player.posX, player.posY, player.width, player.height }))
     {
-        ball.speedX *= -1;
-        PlaySound(collisionSound);
+        if (ball.speedX > 0)
+        {
+            ball.posX = player.posX - ball.radius;
+            ball.speedX *= -1;
+            PlaySound(collisionSound);
+
+            float hitPosition = (ball.posY - player.posY) / player.height;
+            float angelFactor = (hitPosition - 0.5f) * 2;
+
+            Game::DynamicBallDirection(angelFactor);
+        }
+        ball.IncreaseSpeed();
     }
 
     if (CheckCollisionCircleRec({ ball.posX, ball.posY }, ball.radius, { computer.posX, computer.posY, computer.width, computer.height }))
-    {
-        ball.speedX *= -1;
-        PlaySound(collisionSound);
+    { 
+        if (ball.speedX < 0)
+        {
+            ball.posX = computer.posX + computer.width + ball.radius;
+            ball.speedX *= -1;
+            PlaySound(collisionSound);
+
+            float hitPosition = (ball.posY - computer.posY) / computer.height;
+            float angleFactor = (hitPosition - 0.5f) * 2;
+
+            Game::DynamicBallDirection(angleFactor);
+        }
+        ball.IncreaseSpeed();
     }
 
     // Check collision detection with edges 
@@ -82,28 +127,18 @@ void Game::CheckScore()
 void Game::Draw() 
 {
     BeginDrawing();
+
     ClearBackground(BLACK);
-
-    for (const auto &powerUp : powerUps) {
-        powerUp.Draw();
-    }
-
-    if (!gameStarted) 
-    {
-        DrawText("PONG", GetScreenWidth() / 2 - 100, GetScreenHeight() / 2 - 80, 60, WHITE);
-        DrawText("Press ENTER to Start", GetScreenWidth() / 2 - 200, GetScreenHeight() / 2 + 20, 30, WHITE);
-    }
-    else 
-    {
-        ball.Draw();
-        player.Draw();
-        computer.Draw();
-
-        DrawText(TextFormat("%i", compScore), GetScreenWidth() / 4 - 20, 20, 25, WHITE);
-        DrawText(TextFormat("%i", playerScore), 3 * (GetScreenWidth() / 4) - 20, 20, 25, WHITE);
-    }
-
+    BeginDrawingGameContent();
+    
     EndDrawing();
+}
+
+void Game::DynamicBallDirection(float angleFactor)
+{
+    ball.speedY = angleFactor * abs(ball.speedX);
+    if (fabs(ball.speedY) < 5)
+        ball.speedY = copysign(5, ball.speedY);
 }
 
 void Game::InitAudio()
@@ -134,7 +169,7 @@ void Game::PowerUpLogic() {
     {
         powerUp.Update();
 
-        if (powerUp.CheckCollisionWithPaddle({ player.posX, player.posY, player.width, player.height }))
+        if (powerUp.CheckCollisionWithPaddle({ player.posX, player.posY, player.width, player.height }) || powerUp.CheckCollisionWithPaddle({ computer.posX, computer.posY, computer.width, computer.height }))
         {
             powerUp.ActivateEffect(player);
             PlaySound(powerUpSound);
@@ -148,10 +183,12 @@ void Game::PowerUpLogic() {
 
 void Game::SpawnPowerUp()
 {
-    if (GetRandomValue(0, 100) > 1) 
+    if (GetRandomValue(0, 100) > 90) {
         float spawnX = GetRandomValue(0, GetScreenWidth() - 20);
         float spawnY = GetScreenHeight() / 2;
         powerUps.push_back(PowerUp(GetRandomValue(0, GetScreenWidth() - 20), 0));
+        cout << "PowerUp Spawend" << endl;
+    }
 }
 
 void Game::Update() 

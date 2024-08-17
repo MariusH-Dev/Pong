@@ -26,10 +26,8 @@ bool PowerUp::CheckCollisionWithPaddle(Rectangle paddle) const
 
 void PowerUp::Draw() const
 {
-	if (isActive) {
+	if (isActive) 
 		DrawRectangle(posX, posY, width, height, color);
-		std::cout << "Power-Up Draw!" << std::endl;
-	}
 }
 
 void PowerUp::Update()
@@ -53,6 +51,4 @@ void PowerUp::Update()
 
 	if (posX <= 0 || posX + width >= GetScreenWidth())
 		isActive = false;
-
-	
 }

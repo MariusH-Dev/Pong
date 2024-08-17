@@ -17,7 +17,4 @@ public:
 	bool CheckCollisionWithPaddle(Rectangle paddle) const;
 
 };
-
-
-
 #endif

@@ -13,13 +13,13 @@ void Ball::Draw() const
 }
 
 void Ball::IncreaseSpeed() {
-	const int maxSpeed = 18;
+	const int maxSpeed = 15;
 
 	if (speedX < maxSpeed)
-		speedX *= 1.2f;
+		speedX *= 1.02f;
 
 	if (speedY < maxSpeed)
-		speedY *= 1.05f;
+		speedY *= 1.02f;
 }
 
 void Ball::Update()

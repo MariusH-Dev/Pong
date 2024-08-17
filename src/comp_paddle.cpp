@@ -14,15 +14,15 @@ void CompPaddle::Update(float ballY,float ballSpeedX, float deltaTime)
     if (ballSpeedX < 0) {  // The ball flies to the left, i.e. to the computer paddle
 
 
-        // Falls der Ball gerade die Richtung gewechselt hat, setzen wir den Timer zurück
+        // If the ball has just changed direction, we reset the timer
         if (reactionTimer <= 0.0f) {
-            reactionTimer = GetRandomValue(0, 5) / 200.0f;  
+            reactionTimer = GetRandomValue(0, 4) / 250.0;  
         }
 
-        // Reduziere den Timer
+        // Reduce the timer
         reactionTimer -= deltaTime;
 
-        // Paddle reagiert nur, wenn der Timer abgelaufen ist
+        // Paddle only reacts when the timer has expired
         if (reactionTimer <= 0.0f) {
 
             // Calculate the difference between the center of the paddle and the ball with offset

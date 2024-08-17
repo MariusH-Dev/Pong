@@ -44,5 +44,3 @@ void Paddle::Update()
  
     LimitMove();
 }
-
-
