@@ -34,7 +34,7 @@ Dieses Projekt implementiert eine klassische Version des **Pong-Spiels** in C++ 
 
 1. **Klonen des Repositories**
   ```bash
-  git clone https://github.com/USERNAME/pong-2d-raylib.git
+  git clone https://github.com/MariusH-Dev/pong-2d-raylib.git
   cd pong-2d-raylib
   ```
 
@@ -52,7 +52,7 @@ Nach erfolgreichem Build befindet sich die ausführbare Datei im build-Ordner. S
 
 4. Installation (Windows)
 
-  Lade den Installer direkt von der Releases-Seite herunter und führe ihn aus, um das Spiel zu installieren:
+  Lade den Installer direkt von der [Release-Seite](https://github.com/MariusH-Dev/Pong/releases/tag/v1.0.0) herunter und führe ihn aus, um das Spiel zu installieren:
   ```bash
   pong_installer.exe
   ```
