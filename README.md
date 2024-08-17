@@ -95,7 +95,9 @@ Das Projekt ist in mehrere Klassen aufgeteilt, um eine klare Struktur und Wieder
   - **Unsichtbarer Ball**: Ein Power-Up, das den Ball für kurze Zeit unsichtbar macht, um das Spiel schwieriger zu gestalten.
 
 ## Lizenz
-Dieses Projekt steht unter der MIT-Lizenz. Siehe die LICENSE-Datei für weitere Informationen
+## Lizenz
+
+Dieses Projekt steht unter der MIT-Lizenz. Siehe die [LICENSE](LICENSE) Datei für weitere Informationen.
 
 ## Kontakt
 Erstellt von Marius H.
