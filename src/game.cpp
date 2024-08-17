@@ -1,11 +1,12 @@
 #include <iostream>
 #include "game.h"
+#include "particle.h"
 
 Game::Game()
     : ball(GetScreenWidth() / 2, GetScreenHeight() / 2, 10, 8, 10),
     player(GetScreenWidth() - 55, GetScreenHeight() / 2 - 60, 20, 120, 10),
     computer(35, GetScreenHeight() / 2 - 60, 20, 120, 10),
-    playerScore(0), compScore(0), gameStarted(false) {}
+    playerScore(0), compScore(0), gameStarted(false), hueShift(0.0f) {}
 
 Game::~Game() 
 {
@@ -51,6 +52,7 @@ void Game::CheckCollision()
             ball.posX = player.posX - ball.radius;
             ball.speedX *= -1;
             PlaySound(collisionSound);
+            Particle::CreateParticle({ ball.posX, ball.posY }, 20);
 
             float hitPosition = (ball.posY - player.posY) / player.height;
             float angelFactor = (hitPosition - 0.5f) * 2;
@@ -67,6 +69,7 @@ void Game::CheckCollision()
             ball.posX = computer.posX + computer.width + ball.radius;
             ball.speedX *= -1;
             PlaySound(collisionSound);
+            Particle::CreateParticle({ ball.posX, ball.posY }, 20);
 
             float hitPosition = (ball.posY - computer.posY) / computer.height;
             float angleFactor = (hitPosition - 0.5f) * 2;
@@ -126,10 +129,20 @@ void Game::CheckScore()
 
 void Game::Draw() 
 {
+    float saturation = 0.25f;
+    float brightness = 0.15f;
+
+    hueShift += 0.001f;
+    if (hueShift > 1)
+        hueShift = 0.0f;
+
+    Color dynamicBackgroundColor = ColorFromHSV(hueShift * 360.0f, saturation, brightness);
+
     BeginDrawing();
 
-    ClearBackground(BLACK);
-    BeginDrawingGameContent();
+    ClearBackground(dynamicBackgroundColor);    BeginDrawingGameContent();
+
+    Particle::DrawParticle();
     
     EndDrawing();
 }
@@ -199,6 +212,7 @@ void Game::Update()
     UpdateMusicStream(bg_music);
     Game::CheckGameStarted(deltaTime);
     Game::PowerUpLogic();
+    Particle::UpdateParticles();
 }
 
 void Game::UpdateDifficulty()

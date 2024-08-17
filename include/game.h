@@ -22,7 +22,7 @@ private:
     int compScore;
     int playerScore;
 
-    float spawnX, spawnY;
+    float spawnX, spawnY, hueShift;
 
     bool gameStarted;
 
