@@ -16,7 +16,7 @@ void Ball::IncreaseSpeed() {
 	const int maxSpeed = 15;
 
 	if (speedX < maxSpeed)
-		speedX *= 1.02f;
+		speedX *= 1.035f;
 
 	if (speedY < maxSpeed)
 		speedY *= 1.02f;

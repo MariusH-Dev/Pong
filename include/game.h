@@ -41,6 +41,7 @@ public:
     void DynamicBallDirection(float angleFactor);
     void InitAudio();
     void LoadMusicAndSounds();
+    void ManageEffects();
     void PowerUpLogic();
     void SpawnPowerUp();
     void Update();

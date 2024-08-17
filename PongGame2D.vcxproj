@@ -128,6 +128,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\effectManager.cpp" />
     <ClCompile Include="src\particle.cpp" />
     <ClCompile Include="src\powerup.cpp" />
     <ClCompile Include="src\game.cpp" />
@@ -137,6 +138,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\effectManager.h" />
     <ClInclude Include="include\game.h" />
     <ClInclude Include="include\comp_paddle.h" />
     <ClInclude Include="include\ball.h" />

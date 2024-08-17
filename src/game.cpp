@@ -1,6 +1,14 @@
 #include <iostream>
 #include "game.h"
 #include "particle.h"
+#include "effectManager.h"
+
+EffectManager effectManager;
+
+int playerScore = 0;
+int compScore = 0;
+int prevPlayerScore = 0;
+int prevCompScore = 0;
 
 Game::Game()
     : ball(GetScreenWidth() / 2, GetScreenHeight() / 2, 10, 8, 10),
@@ -39,8 +47,8 @@ void Game::BeginDrawingGameContent()
         player.Draw();
         computer.Draw();
 
-        DrawText(TextFormat("%i", compScore), GetScreenWidth() / 4 - 20, 20, 25, WHITE);
-        DrawText(TextFormat("%i", playerScore), 3 * (GetScreenWidth() / 4) - 20, 20, 25, WHITE);
+        DrawText(TextFormat("%i", compScore), GetScreenWidth() / 4 - 20, 20, 35, WHITE);
+        DrawText(TextFormat("%i", playerScore), 3 * (GetScreenWidth() / 4) - 20, 20, 35, WHITE);
     }
 
 }
@@ -141,9 +149,11 @@ void Game::Draw()
     Color dynamicBackgroundColor = ColorFromHSV(hueShift * 360.0f, saturation, brightness);
 
     BeginDrawing();
-
     ClearBackground(dynamicBackgroundColor);   
+
     BeginDrawingGameContent();
+
+    ManageEffects();
 
     Particle::DrawParticle();
     
@@ -178,6 +188,19 @@ void Game::LoadMusicAndSounds()
     powerUpSound = LoadSound("assets/sounds/Rise03.wav");
     scoreSound = LoadSound("assets/sounds/Coin01.wav");
     bg_music = LoadMusicStream("assets/sounds/bg_music.mp3");
+}
+
+void Game::ManageEffects()
+{
+    if (playerScore > prevPlayerScore || compScore > prevCompScore) {
+        effectManager.TriggerScoreEffect();
+        prevPlayerScore = playerScore;
+        prevCompScore = compScore;
+    }
+
+    effectManager.UpdateEffects();
+
+    effectManager.DrawGlowEffect(ball.posX, ball.posY, ball.radius);
 }
 
 void Game::PowerUpLogic() {
