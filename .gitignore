@@ -99,7 +99,6 @@ packages/
 *.def
 *.gch
 *.obj
-*.exe
 *.dll
 *.so
 *.dylib
