@@ -20,6 +20,7 @@ Game::~Game()
 
 void Game::BeginDrawingGameContent()
 {
+    
     // Draw PowerUps
     for (const auto& powerUp : powerUps) {
         powerUp.Draw();
@@ -41,6 +42,7 @@ void Game::BeginDrawingGameContent()
         DrawText(TextFormat("%i", compScore), GetScreenWidth() / 4 - 20, 20, 25, WHITE);
         DrawText(TextFormat("%i", playerScore), 3 * (GetScreenWidth() / 4) - 20, 20, 25, WHITE);
     }
+
 }
 
 void Game::CheckCollision()
@@ -140,7 +142,8 @@ void Game::Draw()
 
     BeginDrawing();
 
-    ClearBackground(dynamicBackgroundColor);    BeginDrawingGameContent();
+    ClearBackground(dynamicBackgroundColor);   
+    BeginDrawingGameContent();
 
     Particle::DrawParticle();
     
@@ -213,6 +216,7 @@ void Game::Update()
     Game::CheckGameStarted(deltaTime);
     Game::PowerUpLogic();
     Particle::UpdateParticles();
+
 }
 
 void Game::UpdateDifficulty()

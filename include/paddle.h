@@ -2,6 +2,7 @@
 #define PADDLE_H
 
 #include "raylib.h"
+#include <string>
 
 class Paddle {
 protected:
@@ -12,10 +13,14 @@ public:
     float posX, posY, width, height, powerUpTimer;
     int speed;
     bool isPowerUpActive;
-
+    Texture2D metalTexture;
+    
     Paddle(float positionX, float positionY, float width, float height, int speed);
-    void Draw();
-
+    ~Paddle();
+    
+    void Draw() const;
+    void TextureLoad();
+    void TextureUnload() const;
     void Update();
 };
 

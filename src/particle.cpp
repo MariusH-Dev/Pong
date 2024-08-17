@@ -8,7 +8,7 @@ void Particle::CreateParticle(Vector2 positon, int count)
 	{
 		Particle p;
 		p.position = positon;
-		p.velocity = { GetRandomValue(-50,50) / 20.0f, GetRandomValue(-50,50) / 20.0f };
+		p.velocity = { GetRandomValue(-50,50) / 10.0f, GetRandomValue(-50,50) / 10.0f };
 		p.color = WHITE;
 		p.lifetime = 1.0f;
 		particles.push_back(p);
@@ -23,6 +23,7 @@ void Particle::UpdateParticles()
 		particles[i].position.y += particles[i].velocity.y;
 		particles[i].lifetime = GetFrameTime();
 
+		// Remove particles when their service life has expired
 		if (particles[i].lifetime <= 0)
 		{
 			particles.erase(particles.begin()) + i;

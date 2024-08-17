@@ -1,14 +1,19 @@
 #include <iostream>
 #include "paddle.h"
+#include "raylib.h"
 
+ 
 Paddle::Paddle(float positionX, float positionY, float width, float height, int speed)
-    : posX(positionX), posY(positionY), width(width), height(height), speed(speed), isPowerUpActive(false), powerUpTimer(0.0f) {}
+    : posX(positionX), posY(positionY), width(width), height(height), speed(speed), isPowerUpActive(false), powerUpTimer(0.0f) { TextureLoad(); }
 
+Paddle::~Paddle() { TextureUnload(); }
 
-
-void Paddle::Draw() 
+void Paddle::Draw() const 
 {
-    DrawRectangleRounded(Rectangle{ posX, posY, width, height }, 0.8, 0, Color{ 255,255,255,255 });
+    DrawTexturePro(metalTexture,
+        Rectangle{ 0, 0, (float)metalTexture.width, (float)metalTexture.height },
+        Rectangle{ posX, posY, width, height },
+        Vector2{ 0, 0 }, 0.0f, WHITE);
 }
 
 void Paddle::LimitMove()
@@ -20,11 +25,15 @@ void Paddle::LimitMove()
         posY = GetScreenHeight() - height;
 }
 
+void Paddle::TextureLoad() { metalTexture = LoadTexture("assets/images/metal_texture.png"); }
+
 void Paddle::ResetPowerUp()
 {
     height = 120;
     isPowerUpActive = false;
 }
+
+void Paddle::TextureUnload() const { UnloadTexture(metalTexture); }
 
 void Paddle::Update() 
 {
