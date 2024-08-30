@@ -16,7 +16,7 @@ Dieses Projekt implementiert eine klassische Version des **Pong-Spiels** in C++ 
 
 - **Programmiersprache:** C++
 - **Grafik-Engine:** Raylib (Version 4.0)
-- **Build-System:** CMake
+- **Build-System:** g++
 - **Versionskontrolle:** Git
 - **Installer-Erstellung:** NSIS (Nullsoft Scriptable Install System)
 
@@ -24,31 +24,13 @@ Dieses Projekt implementiert eine klassische Version des **Pong-Spiels** in C++ 
 
 ### Voraussetzungen
 
-- **Betriebssystem:** Windows, macOS, Linux (Spiel und Quellcode sind plattformübergreifend)
+- **Betriebssystem:** Windows (Spiel und Quellcode sind plattformübergreifend)
 - **Abhängigkeiten:** 
   - Raylib (wird über CMake automatisch integriert)
   - C++17 oder höher
   - Git (für die Versionierung)
 
 ### Installationsanleitung
-
-1. **Klonen des Repositories**
-  ```bash
-  git clone https://github.com/MariusH-Dev/pong-2d-raylib.git
-  cd pong-2d-raylib
-  ```
-
-2. **Builden des Projekts**
- Für Windows:
-  ```bash
-  mkdir build
-  cd build
-  cmake ..
-  cmake --build .
-  ```
-
-3. **Spiel starten**
-Nach erfolgreichem Build befindet sich die ausführbare Datei im build-Ordner. Starte das Spiel durch Ausführen der pong.exe.
 
 4. Installation (Windows)
 
