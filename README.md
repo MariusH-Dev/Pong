@@ -25,7 +25,7 @@ Dieses Projekt implementiert eine klassische Version des **Pong-Spiels** in C++ 
 
 - **Betriebssystem:** Windows (Spiel und Quellcode sind plattformübergreifend)
 - **Abhängigkeiten:** 
-  - Raylib (wird über CMake automatisch integriert)
+  - Raylib
   - C++17 oder höher
   - Git (für die Versionierung)
 
