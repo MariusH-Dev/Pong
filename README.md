@@ -16,7 +16,6 @@ Dieses Projekt implementiert eine klassische Version des **Pong-Spiels** in C++ 
 
 - **Programmiersprache:** C++
 - **Grafik-Engine:** Raylib (Version 4.0)
-- **Build-System:** g++
 - **Versionskontrolle:** Git
 - **Installer-Erstellung:** NSIS (Nullsoft Scriptable Install System)
 
@@ -31,8 +30,7 @@ Dieses Projekt implementiert eine klassische Version des **Pong-Spiels** in C++ 
   - Git (für die Versionierung)
 
 ### Installationsanleitung
-
-4. Installation (Windows)
+Installation (Windows)
 
   Lade den Installer direkt von der [Release-Seite](https://github.com/MariusH-Dev/Pong/releases/tag/v1.0.0) herunter und führe ihn aus, um das Spiel zu installieren:
   ```bash
